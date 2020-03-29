@@ -30,6 +30,9 @@ jobs:
     - name: Check style
       run: |
         flake8 src --count --statistics
+    - name: Check import order
+      run: |
+        isort src --check-only --recursive
     - name: Check typing
       run: |
         mypy src
