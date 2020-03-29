@@ -23,9 +23,17 @@ def main():
     parser_udp_ping = subparsers.add_parser('udp')
     parser_udp_ping.add_argument('host')
     parser_udp_ping.add_argument('port', type=int)
-    parser_udp_ping.add_argument('-c', '--count', type=int, default=-1)
-    parser_udp_ping.add_argument('-s', '--packetsize', type=int, default=0)
-    parser_udp_ping.add_argument('-i', '--wait', type=float, default=1.0)
+    parser_udp_ping.add_argument('-c', '--count', type=int, default=-1,
+                                 help='Stop after sending (and receiving) COUNT packets.'
+                                 ' If this option is not specified, ping will operate until interrupted.')
+    parser_udp_ping.add_argument('-s', '--packetsize', type=int, default=48,
+                                 help='Specify the number of data bytes to be sent.'
+                                 ' The default is 48, which translates into 64 UDP data bytes when combined'
+                                 ' with the 16 bytes of ping header data.')
+    parser_udp_ping.add_argument('-i', '--wait', type=float, default=1.0,
+                                 help='Wait WAIT seconds between sending each packet.'
+                                 ' The default is to wait for one second between each packet.'
+                                 ' The wait time may be fractional')
     parser_udp_ping.set_defaults(func=main_udp)
 
     args = parser.parse_args()
