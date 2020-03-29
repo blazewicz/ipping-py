@@ -51,8 +51,9 @@ setup(
     ],
     extras_require={
         'dev': [
+            'flake8',
+            'isort',
             'mypy',
-            'flake8'
         ],
     },
 
