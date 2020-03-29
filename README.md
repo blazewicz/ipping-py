@@ -1,6 +1,8 @@
 # IP ping
 
-A [`ping(8)`](https://linux.die.net/man/8/ping) like tool using IP layer packets, currently only UDP is supported.
+A [`ping(8)`](https://linux.die.net/man/8/ping) like network utility allowing use of TCP and UDP packets to measure round-trip and packet loss statistics.
+
+Implemented in minimal-dependency pure Python 3.7+ using [asyncio-protocol](https://docs.python.org/3/library/asyncio-protocol.html).
 
 ## UDP
 
@@ -16,10 +18,10 @@ Using [`socat(1)`](https://linux.die.net/man/1/socat)
 socat PIPE udp-recvfrom:5554,fork
 ```
 
-Using [`nc(1)`](https://linux.die.net/man/1/nc)
+Using [`ncat(1)`](https://linux.die.net/man/1/ncat)
 
 ```sh
-nc -kule /bin/cat 5554
+ncat -kule /bin/cat 5554
 ```
 
 ### Example usage
