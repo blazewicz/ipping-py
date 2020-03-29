@@ -2,7 +2,7 @@ import asyncio
 import random
 import time
 from statistics import mean, stdev
-from typing import Tuple
+from typing import Optional, Tuple
 from weakref import WeakValueDictionary
 
 from .protocol import HEADER_SIZE, pack_frame, unpack_frame
@@ -33,7 +33,7 @@ class UDPPingClientProtocol(asyncio.DatagramProtocol):
         packet_id: int,
         payload_size: int,
         response_future: 'asyncio.Future[Tuple[int, Addr]]',
-    ):
+    ) -> None:
         self.expected_packets[(client_id, packet_id)] = response_future
         frame = pack_frame(client_id, packet_id, payload_size)
         self.transport.sendto(frame)
@@ -42,14 +42,14 @@ class UDPPingClientProtocol(asyncio.DatagramProtocol):
         self.transport = transport
         self.on_connection_made.set_result(True)
 
-    def connection_lost(self, exc):
+    def connection_lost(self, exc: Optional[Exception]) -> None:
         self.on_connection_lost.set_result(True)
 
     def datagram_received(self, data: bytes, addr: Addr) -> None:
         client_id, packet_id, payload_size = unpack_frame(data)
         self.expected_packets[(client_id, packet_id)].set_result((payload_size, addr))
 
-    def error_received(self, exc):
+    def error_received(self, exc: Exception) -> None:
         print(f'Request error: {exc}')
         # self.on_error_received.set_exception(exc)
 
@@ -74,7 +74,7 @@ class UDPClient:
 
         self.loop = loop
 
-    async def connect(self):
+    async def connect(self) -> None:
         loop = self.loop or asyncio.get_running_loop()
 
         connection_made = loop.create_future()
@@ -90,12 +90,12 @@ class UDPClient:
             remote_addr=self.remote_addr
         )
 
-        self.transport = transport
-        self.protocol = protocol
+        self.transport = transport  # type: ignore
+        self.protocol = protocol  # type: ignore
 
         await connection_made
 
-    async def stop(self):
+    async def stop(self) -> None:
         self.transport.close()
 
     async def ping_request(self) -> Tuple[int, int, Addr]:

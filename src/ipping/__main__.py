@@ -15,7 +15,7 @@ def main_udp(args: argparse.Namespace) -> None:
         loop.run_until_complete(task)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
 
     subparsers = parser.add_subparsers()
