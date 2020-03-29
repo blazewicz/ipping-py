@@ -29,6 +29,7 @@ setup(
     url='https://github.com/blazewicz/ipping-py',
     description='IP (TCP/UDP) ping tools',
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     # https://pypi.org/classifiers/
     classifiers=[
         'Development Status :: 4 - Beta',
