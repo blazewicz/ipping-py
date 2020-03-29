@@ -22,8 +22,9 @@ class UDPPingClientProtocol(asyncio.DatagramProtocol):
         self.on_connection_lost = on_connection_lost
         self.on_error_received = on_error_received
 
-        self.expected_packets: WeakValueDictionary[Tuple[int, int],
-                                                   'asyncio.Future[Tuple[int, Addr]]'] = WeakValueDictionary()
+        self.expected_packets: WeakValueDictionary[
+            Tuple[int, int], 'asyncio.Future[Tuple[int, Addr]]'
+        ] = WeakValueDictionary()
 
         self.transport: asyncio.DatagramTransport = None  # type: ignore
 
@@ -69,7 +70,7 @@ class UDPClient:
         self.transport: asyncio.DatagramTransport = None  # type: ignore
         self.protocol: UDPPingClientProtocol = None  # type: ignore
 
-        self.client_id = random.randint(0, 2**64-1)
+        self.client_id = random.randint(0, 2**64 - 1)
         self.packet_counter = 0
 
         self.loop = loop
@@ -105,7 +106,9 @@ class UDPClient:
         self.packet_counter += 1
         response_future = loop.create_future()
 
-        self.protocol.ping_request(self.client_id, packet_id, self.payload_size, response_future)
+        self.protocol.ping_request(
+            self.client_id, packet_id, self.payload_size, response_future
+        )
 
         timestamp0 = time.perf_counter_ns()
         res = await response_future
