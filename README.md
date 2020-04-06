@@ -26,13 +26,7 @@ Echo server must be running on the machine we want to ping.
 Using [`socat(1)`](https://linux.die.net/man/1/socat):
 
 ```sh
-socat PIPE udp-recvfrom:5554,fork
-```
-
-Using [`ncat(1)`](https://linux.die.net/man/1/ncat):
-
-```sh
-ncat -kule /bin/cat 5554
+socat PIPE UDP-RECVFROM:5554,fork
 ```
 
 Run ping test:
