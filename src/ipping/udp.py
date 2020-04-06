@@ -76,7 +76,7 @@ class UDPClient:
         self.loop = loop
 
     async def connect(self) -> None:
-        loop = self.loop or asyncio.get_running_loop()
+        loop = self.loop or asyncio.get_event_loop()
 
         connection_made = loop.create_future()
         connection_lost = loop.create_future()
@@ -100,7 +100,7 @@ class UDPClient:
         self.transport.close()
 
     async def ping_request(self) -> Tuple[int, int, Addr]:
-        loop = self.loop or asyncio.get_running_loop()
+        loop = self.loop or asyncio.get_event_loop()
 
         packet_id = self.packet_counter
         self.packet_counter += 1
@@ -110,9 +110,9 @@ class UDPClient:
             self.client_id, packet_id, self.payload_size, response_future
         )
 
-        timestamp0 = time.perf_counter_ns()
+        timestamp0 = time.perf_counter()
         res = await response_future
-        round_trip = (time.perf_counter_ns() - timestamp0) / 1_000_000
+        round_trip = (time.perf_counter() - timestamp0) * 1000
 
         return (round_trip, *res)  # type: ignore
 

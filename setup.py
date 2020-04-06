@@ -37,6 +37,7 @@ setup(
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: MIT License',
         'Operating System :: POSIX',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Topic :: System :: Networking',
@@ -46,7 +47,7 @@ setup(
     # Packages and depencies
     package_dir={'': 'src'},
     packages=find_packages('src'),
-    python_requires='~=3.7',
+    python_requires='~=3.6',
     install_requires=[
     ],
     extras_require={

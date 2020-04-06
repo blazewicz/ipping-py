@@ -5,7 +5,7 @@
 
 A [`ping(8)`](https://linux.die.net/man/8/ping) like network utility allowing use of TCP and UDP packets to measure round-trip and packet loss statistics.
 
-Implemented in minimal-dependency pure Python 3.7+ using [asyncio-protocol](https://docs.python.org/3/library/asyncio-protocol.html).
+Implemented in minimal-dependency pure Python 3.6+ using [asyncio-protocol](https://docs.python.org/3/library/asyncio-protocol.html).
 
 ## Installation
 
