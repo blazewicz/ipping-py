@@ -29,3 +29,11 @@ jobs:
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
+    - name: Upload wheel file to release
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: dist/*.whl
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
